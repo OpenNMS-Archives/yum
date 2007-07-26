@@ -1,5 +1,6 @@
 [opennms-unstable-common]
-name=OpenNMS common RPMs (unstable)
+name=RPMs Common to All OpenNMS Architectures RPMs (unstable)
 mirrorlist=http://yum.opennms.org/mirrorlists/unstable-common.txt
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+       http://yum.opennms.org/DAG-GPG-KEY

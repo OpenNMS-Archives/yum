@@ -1,1 +1,2 @@
+http://opennms.sourceforge.net/yum/stable/common
 http://yum.opennms.org/stable/common

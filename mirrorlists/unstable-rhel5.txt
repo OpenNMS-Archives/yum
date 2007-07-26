@@ -1,1 +1,2 @@
+http://opennms.sourceforge.net/yum/unstable/rhel5
 http://yum.opennms.org/unstable/rhel5
