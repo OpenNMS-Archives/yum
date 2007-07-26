@@ -1,0 +1,5 @@
+[opennms-unstable-rhel5]
+name=OpenNMS rhel5 RPMs (unstable)
+mirrorlist=http://yum.opennms.org/mirrorlists/unstable-rhel5.txt
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

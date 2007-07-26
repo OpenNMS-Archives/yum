@@ -1,0 +1,5 @@
+[opennms-stable-rhel5]
+name=OpenNMS rhel5 RPMs (stable)
+mirrorlist=http://yum.opennms.org/mirrorlists/stable-rhel5.txt
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
