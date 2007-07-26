@@ -3,4 +3,3 @@ name=RPMs Common to All OpenNMS Architectures RPMs (stable)
 mirrorlist=http://yum.opennms.org/mirrorlists/stable-common.txt
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
-       http://yum.opennms.org/DAG-GPG-KEY

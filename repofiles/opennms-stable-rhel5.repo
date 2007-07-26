@@ -3,4 +3,3 @@ name=RedHat Enterprise Linux 5.x and CentOS 5.x RPMs (stable)
 mirrorlist=http://yum.opennms.org/mirrorlists/stable-rhel5.txt
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
-       http://yum.opennms.org/DAG-GPG-KEY
