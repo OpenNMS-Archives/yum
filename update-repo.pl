@@ -47,18 +47,12 @@ for my $tree (@trees) {
 			"$tree/$dir",
 		) == 0 or die "unable to run createrepo: $!";
 
-		my $repofile = IO::Handle->new();
-		open($repofile, ">repofiles/opennms-$tree-$dir.repo") or die "unable to write to repofiles/opennms-$tree-$dir.repo: $!";
-		print $repofile <<END;
-[opennms-$tree-$dir]
-name=$descriptions->{$dir} RPMs ($tree)
-baseurl=http://yum.opennms.org/$tree/$dir
-mirrorlist=http://yum.opennms.org/mirrorlists/$tree-$dir.txt
-failovermethod=priority
-gpgcheck=1
-gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
-END
-		close($repofile);
+		if ($tree eq 'unstable') {
+			write_repofile('stable', $dir, "repofiles/opennms-$tree-$dir.repo", 0);
+			write_repofile($tree,    $dir, "repofiles/opennms-$tree-$dir.repo", 1);
+		} else {
+			write_repofile($tree,    $dir, "repofiles/opennms-$tree-$dir.repo", 0);
+		}
 
 		if (not -f "mirrorlists/$tree-$dir.txt") {
 			my $mirrorlist = IO::Handle->new();
@@ -75,6 +69,27 @@ print $index <<END;
  </body>
 </html>
 END
+
+sub write_repofile {
+	my $tree     = shift;
+	my $dir      = shift;
+	my $filename = shift;
+	my $append   = shift || 0;
+
+	my $repofile = IO::Handle->new();
+	open($repofile, ($append? '>>' : '>') . $filename) or die "unable to write to $filename: $!";
+	print $repofile <<END;
+[opennms-$tree-$dir]
+name=$descriptions->{$dir} RPMs ($tree)
+baseurl=http://yum.opennms.org/$tree/$dir
+mirrorlist=http://yum.opennms.org/mirrorlists/$tree-$dir.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
+END
+	close($repofile);
+}
 
 close ($index);
 
