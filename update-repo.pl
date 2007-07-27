@@ -36,10 +36,10 @@ for my $tree (@trees) {
 		print $index "   <li><a href='repofiles/opennms-$tree-$dir.repo'>$descriptions->{$dir}</a> (<a href='$tree/$dir'>browse</a>)</li>\n";
 
 		mkpath([$tree . '/' . $dir, 'caches/' . $tree . '/' . $dir, 'repofiles']);
-		system('chown', '-R', 'root:root', "$tree/$dir", "caches/$tree/$dir") == 0 or die "unable to chown $tree/$dir and caches/$tree/$dir: $!";
+		#system('chown', '-R', 'root:root', "$tree/$dir", "caches/$tree/$dir") == 0 or die "unable to chown $tree/$dir and caches/$tree/$dir: $!";
 		system(
 			'createrepo',
-			'--baseurl', "http://yum.opennms.org/$tree/$dir",
+			'--baseurl', "http://opennms.sourceforge.net/yum/$tree/$dir",
 			'--outputdir', "$tree/$dir",
 			'--verbose',
 			'--cachedir', "../../caches/$tree/$dir",
