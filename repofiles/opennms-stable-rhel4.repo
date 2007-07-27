@@ -1,5 +1,5 @@
 [opennms-stable-rhel4]
 name=RedHat Enterprise Linux 4.x and CentOS 4.x RPMs (stable)
-mirrorlist=http://yum.opennms.org/mirrorlists/stable-rhel4.txt
+mirrorlist=http://opennms.sourceforge.net/yum/mirrorlists/stable-rhel4.txt
 gpgcheck=1
-gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+gpgkey=http://opennms.sourceforge.net/yum/OPENNMS-GPG-KEY

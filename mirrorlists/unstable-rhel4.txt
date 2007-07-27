@@ -1,2 +1,3 @@
+http://turbine.slackworks.com/~ranger/opennms-yum/unstable/rhel4
 http://opennms.sourceforge.net/yum/unstable/rhel4
 http://yum.opennms.org/unstable/rhel4

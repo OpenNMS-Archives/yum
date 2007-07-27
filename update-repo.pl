@@ -52,9 +52,9 @@ for my $tree (@trees) {
 		print $repofile <<END;
 [opennms-$tree-$dir]
 name=$descriptions->{$dir} RPMs ($tree)
-mirrorlist=http://yum.opennms.org/mirrorlists/$tree-$dir.txt
+mirrorlist=http://opennms.sourceforge.net/yum/mirrorlists/$tree-$dir.txt
 gpgcheck=1
-gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+gpgkey=http://opennms.sourceforge.net/yum/OPENNMS-GPG-KEY
 END
 		close($repofile);
 
