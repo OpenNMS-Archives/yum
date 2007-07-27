@@ -1,5 +1,0 @@
-[opennms-unstable-rhel5]
-name=RedHat Enterprise Linux 5.x and CentOS 5.x RPMs (unstable)
-mirrorlist=http://opennms.sourceforge.net/yum/mirrorlists/unstable-rhel5.txt
-gpgcheck=1
-gpgkey=http://opennms.sourceforge.net/yum/OPENNMS-GPG-KEY
