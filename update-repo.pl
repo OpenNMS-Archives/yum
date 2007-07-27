@@ -39,7 +39,7 @@ for my $tree (@trees) {
 		#system('chown', '-R', 'root:root', "$tree/$dir", "caches/$tree/$dir") == 0 or die "unable to chown $tree/$dir and caches/$tree/$dir: $!";
 		system(
 			'createrepo',
-			'--baseurl', "http://opennms.sourceforge.net/yum/$tree/$dir",
+			'--baseurl', "http://yum.opennms.org/$tree/$dir",
 			'--outputdir', "$tree/$dir",
 			'--verbose',
 			'--cachedir', "../../caches/$tree/$dir",
@@ -52,11 +52,11 @@ for my $tree (@trees) {
 		print $repofile <<END;
 [opennms-$tree-$dir]
 name=$descriptions->{$dir} RPMs ($tree)
-baseurl=http://opennms.sourceforge.net/yum/$tree/$dir
-mirrorlist=http://opennms.sourceforge.net/yum/mirrorlists/$tree-$dir.txt
+baseurl=http://yum.opennms.org/$tree/$dir
+mirrorlist=http://yum.opennms.org/mirrorlists/$tree-$dir.txt
 failovermethod=priority
 gpgcheck=1
-gpgkey=http://opennms.sourceforge.net/yum/OPENNMS-GPG-KEY
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 END
 		close($repofile);
 
