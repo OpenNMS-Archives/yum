@@ -1,0 +1,2 @@
+http://turbine.slackworks.com/~ranger/opennms-yum/unstable/fc6
+http://yum.opennms.org/unstable/fc6

@@ -1,0 +1,2 @@
+http://turbine.slackworks.com/~ranger/opennms-yum/stable/fc7
+http://yum.opennms.org/stable/fc7
