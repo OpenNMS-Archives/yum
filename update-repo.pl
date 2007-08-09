@@ -54,11 +54,11 @@ for my $tree (@trees) {
 	write_repofile($tree, 'common', $descriptions->{'common'});
 
 	for my $os (@oses) {
-		print $index "   <li><a href='$tree/$os/opennms/opennms-repo.rpm'>$descriptions->{$os}</a> (<a href='$tree/$os'>browse</a>)</li>\n";
-
 		mkpath([$tree . '/' . $os, 'caches/' . $tree . '/' . $os, 'repofiles']);
 		write_repofile($tree, $os, $descriptions->{$os});
-		make_rpm($tree, $os);
+
+		my $rpmname = make_rpm($tree, $os);
+		print $index "   <li><a href='$tree/$os/opennms/$rpmname'>$descriptions->{$os}</a> (<a href='$tree/$os'>browse</a>)</li>\n";
 
 		system(
 			@createrepo,
@@ -132,13 +132,14 @@ sub make_rpm {
 		for my $file (readdir(DIR)) {
 			chomp($file);
 			if ($file =~ /\.rpm$/) {
-				push(@files, "/tmp/rpm-repo/RPMS/noarch/$file");
+				push(@files, $file);
 			}
 		}
 		closedir(DIR);
 		for my $file (@files) {
 			mkpath(["$tree/$os/opennms"]);
-			move($file, "$tree/$os/opennms/");
+			move("/tmp/rpm-repo/RPMS/noarch/$file", "$tree/$os/opennms/");
 		}
+		return($files[0]);
 	}
 }
