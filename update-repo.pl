@@ -34,45 +34,39 @@ print $index <<END;
   <h1>OpenNMS Yum Repository</h1>
 END
 
+my @createrepo = qw(createrepo --verbose --pretty);
+
 for my $tree (@trees) {
 	my $title = ucfirst($tree);
 	print $index "  <h2>$title</h2>\n";
 	print $index "  <ul>\n";
 
-	for my $dir ('common', @oses) {
-		print $index "   <li><a href='repofiles/opennms-$tree-$dir.repo'>$descriptions->{$dir}</a> (<a href='$tree/$dir'>browse</a>)</li>\n";
+	print $index "   <li>$descriptions->{'common'}</a> (<a href='$tree/common'>browse</a>)</li>\n";
+	mkpath([$tree . '/common', 'caches/' . $tree . '/common', 'repofiles']);
+	system(
+		@createrepo,
+		'--baseurl', "http://yum.opennms.org/$tree/common",
+		'--outputdir', "$tree/common",
+		'--cachedir', "../../caches/$tree/common",
+		"$tree/common"
+	) == 0 or die "unable to run createrepo: $!";
+
+	write_repofile($tree, 'common', $descriptions->{'common'});
+
+	for my $dir (@oses) {
+		print $index "   <li><a href='$tree/$dir/opennms/opennms-repo.rpm'>$descriptions->{$dir}</a> (<a href='$tree/$dir'>browse</a>)</li>\n";
 
 		mkpath([$tree . '/' . $dir, 'caches/' . $tree . '/' . $dir, 'repofiles']);
 		#system('chown', '-R', 'root:root', "$tree/$dir", "caches/$tree/$dir") == 0 or die "unable to chown $tree/$dir and caches/$tree/$dir: $!";
 		system(
-			'createrepo',
+			@createrepo,
 			'--baseurl', "http://yum.opennms.org/$tree/$dir",
 			'--outputdir', "$tree/$dir",
-			'--verbose',
 			'--cachedir', "../../caches/$tree/$dir",
-			'--pretty',
 			"$tree/$dir",
 		) == 0 or die "unable to run createrepo: $!";
 
-		my $repofile = IO::Handle->new();
-		open($repofile, ">repofiles/opennms-$tree-$dir.repo") or die "unable to write to repofiles/opennms-$tree-$dir.repo: $!";
-		print $repofile <<END;
-[opennms-$tree-$dir]
-name=$descriptions->{$dir} RPMs ($tree)
-baseurl=http://yum.opennms.org/$tree/$dir
-mirrorlist=http://yum.opennms.org/mirrorlists/$tree-$dir.txt
-failovermethod=priority
-gpgcheck=1
-gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
-END
-		close($repofile);
-
-		if (not -f "mirrorlists/$tree-$dir.txt") {
-			my $mirrorlist = IO::Handle->new();
-			open ($mirrorlist, ">mirrorlists/$tree-$dir.txt") or die "unable to write to mirrorlists/$tree-$dir.txt: $!";
-			print $mirrorlist "http://yum.opennms.org/$tree/$dir\n";
-			close ($mirrorlist);
-		}
+		write_repofile($tree, $dir, $descriptions->{$dir});
 
 	}
 	print $index "  </ul>\n";
@@ -86,3 +80,30 @@ END
 close ($index);
 
 move('.index.html', 'index.html');
+
+sub write_repofile {
+	my $tree        = shift;
+	my $dir         = shift;
+	my $description = shift;
+
+	my $repofile = IO::Handle->new();
+	open($repofile, ">repofiles/opennms-$tree-$dir.repo") or die "unable to write to repofiles/opennms-$tree-$dir.repo: $!";
+	print $repofile <<END;
+[opennms-$tree-$dir]
+name=$description RPMs ($tree)
+baseurl=http://yum.opennms.org/$tree/$dir
+mirrorlist=http://yum.opennms.org/mirrorlists/$tree-$dir.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+END
+	close($repofile);
+
+	if (not -f "mirrorlists/$tree-$dir.txt") {
+		my $mirrorlist = IO::Handle->new();
+		open ($mirrorlist, ">mirrorlists/$tree-$dir.txt") or die "unable to write to mirrorlists/$tree-$dir.txt: $!";
+		print $mirrorlist "http://yum.opennms.org/$tree/$dir\n";
+		close ($mirrorlist);
+	}
+}
+
