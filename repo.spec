@@ -1,23 +1,20 @@
-%define tree stable
-%define os   rhel5
-
-Summary: Yum repository files for %{tree}/%{os} OpenNMS
-Name: opennms-repo
+Summary: Yum repository files for %{_tree}/%{_osname} OpenNMS
+Name: opennms-repo-%{_tree}
 Version: 1.0
 Release: 1
 License: GPL
 Group: Development/Tools
 URL: http://yum.opennms.org/
 
-Source0: opennms-%{tree}-common.repo
-Source1: opennms-%{tree}-%{os}.repo
+Source0: opennms-%{_tree}-common.repo
+Source1: opennms-%{_tree}-%{_osname}.repo
 
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
-Yum repository files for installing OpenNMS %{tree} on
-%{os}.
+Yum repository files for installing OpenNMS %{_tree} on
+%{_osname}.
 
 %build
 
@@ -25,6 +22,11 @@ Yum repository files for installing OpenNMS %{tree} on
 install -d -m 755            $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d
 install -c -m 644 %{SOURCE0} $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/
 install -c -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/yum.repos.d/
+
+%clean
+if [ "$RPM_BUILD_ROOT" != "/" ]; then
+	rm -rf "$RPM_BUILD_ROOT"
+fi
 
 %files
 %{_sysconfdir}/yum.repos.d/*.repo
