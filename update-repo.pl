@@ -139,7 +139,7 @@ sub make_rpm {
 	my $os   = shift;
 
 	for my $dir ('tmp', 'SPECS', 'SOURCES', 'RPMS', 'SRPMS', 'BUILD') {
-		mkpath(['/tmp/rpm-repo/' . $dir]);
+		mkpath(['/tmp/rpm-repo-' . $$ . '/' . $dir]);
 	}
 	copy("repofiles/opennms-$tree-$os.repo",    "/tmp/rpm-repo/SOURCES/");
 	copy("repofiles/opennms-$tree-common.repo", "/tmp/rpm-repo/SOURCES/");
@@ -168,4 +168,6 @@ sub make_rpm {
 		}
 		return($files[0]);
 	}
+
+	rmtree('/tmp/rpm-repo-' . $$);
 }
