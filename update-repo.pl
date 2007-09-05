@@ -7,10 +7,11 @@ use File::Copy;
 use File::Path;
 use IO::Handle;
 
-our $signing_password = shift @ARGV;
+my $signing_password = shift @ARGV;
 
-my @trees = qw(stable unstable);
-my @oses  = qw(fc4 fc5 fc6 fc7 rhel3 rhel4 rhel5 suse9 suse10);
+my @trees   = qw(stable unstable);
+my @oses    = qw(fc4 fc5 fc6 fc7 rhel3 rhel4 rhel5 suse9 suse10);
+my $repodir = '/tmp/rpm-repo-' . $$;
 
 my $descriptions = {
 	common => 'RPMs Common to All OpenNMS Architectures',
@@ -139,21 +140,22 @@ sub make_rpm {
 	my $os   = shift;
 
 	for my $dir ('tmp', 'SPECS', 'SOURCES', 'RPMS', 'SRPMS', 'BUILD') {
-		mkpath(['/tmp/rpm-repo-' . $$ . '/' . $dir]);
+		mkpath([$repodir . '/' . $dir]);
 	}
-	copy("repofiles/opennms-$tree-$os.repo",    "/tmp/rpm-repo/SOURCES/");
-	copy("repofiles/opennms-$tree-common.repo", "/tmp/rpm-repo/SOURCES/");
+	copy("repofiles/opennms-$tree-$os.repo",    $repodir . '/SOURCES/');
+	copy("repofiles/opennms-$tree-common.repo", $repodir . '/SOURCES/');
 
 	run_command(
-		"rpmbuild", "-bb",
-		"--buildroot=/tmp/rpm-repo/tmp/buildroot",
-		"--define", "_topdir /tmp/rpm-repo",
-		"--define", "_tree $tree",
-		"--define", "_osname $os",
-		"repo.spec"
+		'rpmbuild',
+		'-bb',
+		"--buildroot=$repodir/tmp/buildroot",
+		'--define', "_topdir $repodir",
+		'--define', "_tree $tree",
+		'--define', "_osname $os",
+		'repo.spec'
 	) == 0 or die "unable to build rpm: $!";
 
-	if (opendir(DIR, "/tmp/rpm-repo/RPMS/noarch")) {
+	if (opendir(DIR, $repodir . '/RPMS/noarch')) {
 		my @files;
 		for my $file (readdir(DIR)) {
 			chomp($file);
@@ -164,10 +166,10 @@ sub make_rpm {
 		closedir(DIR);
 		for my $file (@files) {
 			mkpath(["$tree/$os/opennms"]);
-			move("/tmp/rpm-repo/RPMS/noarch/$file", "$tree/$os/opennms/");
+			move($repodir . '/RPMS/noarch/' . $file, "$tree/$os/opennms/");
 		}
 		return($files[0]);
 	}
 
-	rmtree('/tmp/rpm-repo-' . $$);
+	rmtree($repodir);
 }
