@@ -7,6 +7,8 @@ use File::Copy;
 use File::Path;
 use IO::Handle;
 
+our $signing_password = shift @ARGV;
+
 my @trees = qw(stable unstable);
 my @oses  = qw(fc4 fc5 fc6 fc7 rhel3 rhel4 rhel5 suse9 suse10);
 
@@ -43,13 +45,7 @@ for my $tree (@trees) {
 
 	print $index "   <li>$descriptions->{'common'}</a> (<a href='$tree/common'>browse</a>)</li>\n";
 	mkpath([$tree . '/common', 'caches/' . $tree . '/common', 'repofiles']);
-	system(
-		@createrepo,
-		'--baseurl', "http://yum.opennms.org/$tree/common",
-		'--outputdir', "$tree/common",
-		'--cachedir', "../../caches/$tree/common",
-		"$tree/common"
-	) == 0 or die "unable to run createrepo: $!";
+	create_repo($tree, 'common');
 
 	write_repofile($tree, 'common', $descriptions->{'common'});
 
@@ -60,13 +56,7 @@ for my $tree (@trees) {
 		my $rpmname = make_rpm($tree, $os);
 		print $index "   <li><a href='$tree/$os/opennms/$rpmname'>$descriptions->{$os}</a> (<a href='$tree/$os'>browse</a>)</li>\n";
 
-		system(
-			@createrepo,
-			'--baseurl', "http://yum.opennms.org/$tree/$os",
-			'--outputdir', "$tree/$os",
-			'--cachedir', "../../caches/$tree/$os",
-			"$tree/$os",
-		) == 0 or die "unable to run createrepo: $!";
+		create_repo($tree, $os);
 	}
 	print $index "  </ul>\n";
 }
@@ -79,6 +69,44 @@ END
 close ($index);
 
 move('.index.html', 'index.html');
+
+sub run_command {
+	my @command = @_;
+
+	print "- running '@command'\n";
+	return system(@command);
+}
+
+sub create_repo {
+	my $tree = shift;
+	my $os   = shift;
+
+	run_command('rm', '-rf', "$tree/$os/.olddata");
+
+
+	# generate the repo
+	run_command(
+		@createrepo,
+		'--baseurl', "http://yum.opennms.org/$tree/$os",
+		'--outputdir', "$tree/$os",
+		'--cachedir', "../../caches/$tree/$os",
+		"$tree/$os",
+	) == 0 or die "unable to run createrepo: $!";
+
+	# sign the XML file
+	run_command(
+		'gpg',
+		'--yes',
+		'-a',
+		'--detach-sign',
+		'--passphrase', $signing_password,
+		"$tree/$os/repodata/repomd.xml"
+	) == 0 or die "unable to sign the repomd.xml file: $!";
+
+	# write the signing public key for convenience
+	run_command( "gpg -a --export opennms\@opennms.org > $tree/$os/repodata/repomd.xml.key" ) == 0
+		or die "unable to export the public key: $!";
+}
 
 sub write_repofile {
 	my $tree        = shift;
@@ -116,16 +144,14 @@ sub make_rpm {
 	copy("repofiles/opennms-$tree-$os.repo",    "/tmp/rpm-repo/SOURCES/");
 	copy("repofiles/opennms-$tree-common.repo", "/tmp/rpm-repo/SOURCES/");
 
-	my @command = (
+	run_command(
 		"rpmbuild", "-bb",
 		"--buildroot=/tmp/rpm-repo/tmp/buildroot",
 		"--define", "_topdir /tmp/rpm-repo",
 		"--define", "_tree $tree",
 		"--define", "_osname $os",
 		"repo.spec"
-	);
-	print "running @command\n";
-	system(@command) == 0 or die "unable to build rpm: $!";
+	) == 0 or die "unable to build rpm: $!";
 
 	if (opendir(DIR, "/tmp/rpm-repo/RPMS/noarch")) {
 		my @files;
