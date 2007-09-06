@@ -1,2 +1,3 @@
+http://opennms.sourceforge.net/yum/unstable/fc5
 http://turbine.slackworks.com/~ranger/opennms-yum/unstable/fc5
 http://yum.opennms.org/unstable/fc5
