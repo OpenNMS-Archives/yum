@@ -1,1 +1,2 @@
+http://turbine.slackworks.com/~ranger/opennms-yum/snapshot/rhel3
 http://yum.opennms.org/snapshot/rhel3

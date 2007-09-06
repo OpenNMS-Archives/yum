@@ -1,1 +1,2 @@
+http://turbine.slackworks.com/~ranger/opennms-yum/snapshot/common
 http://yum.opennms.org/snapshot/common

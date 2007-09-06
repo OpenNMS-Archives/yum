@@ -1,1 +1,2 @@
+http://turbine.slackworks.com/~ranger/opennms-yum/snapshot/suse10
 http://yum.opennms.org/snapshot/suse10
