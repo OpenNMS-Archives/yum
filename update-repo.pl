@@ -9,7 +9,7 @@ use IO::Handle;
 
 my $signing_password = shift @ARGV;
 
-my @trees   = qw(stable unstable);
+my @trees   = qw(stable unstable snapshot);
 my @oses    = qw(fc4 fc5 fc6 fc7 rhel3 rhel4 rhel5 suse9 suse10);
 my $repodir = '/tmp/rpm-repo-' . $$;
 
@@ -59,6 +59,7 @@ for my $tree (@trees) {
 
 		create_repo($tree, $os);
 	}
+
 	print $index "  </ul>\n";
 }
 
@@ -114,17 +115,28 @@ sub write_repofile {
 	my $os          = shift;
 	my $description = shift;
 
+	my @ts;
+	for my $t (@trees) {
+		push(@ts, $t);
+		last if ($t eq $tree);
+	}
+
 	my $repofile = IO::Handle->new();
 	open($repofile, ">repofiles/opennms-$tree-$os.repo") or die "unable to write to repofiles/opennms-$tree-$os.repo: $!";
-	print $repofile <<END;
-[opennms-$tree-$os]
-name=$description RPMs ($tree)
-baseurl=http://yum.opennms.org/$tree/$os
-mirrorlist=http://yum.opennms.org/mirrorlists/$tree-$os.txt
+
+	for my $treename (@ts) {
+		print $repofile <<END;
+[opennms-$treename-$os]
+name=$description RPMs ($treename)
+baseurl=http://yum.opennms.org/$treename/$os
+mirrorlist=http://yum.opennms.org/mirrorlists/$treename-$os.txt
 failovermethod=priority
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
 END
+	}
+
 	close($repofile);
 
 	if (not -f "mirrorlists/$tree-$os.txt") {
