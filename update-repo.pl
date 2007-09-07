@@ -96,14 +96,8 @@ sub create_repo {
 	) == 0 or die "unable to run createrepo: $!";
 
 	# sign the XML file
-	run_command(
-		'gpg',
-		'--yes',
-		'-a',
-		'--detach-sign',
-		'--passphrase', $signing_password,
-		"$tree/$os/repodata/repomd.xml"
-	) == 0 or die "unable to sign the repomd.xml file: $!";
+	run_command( './detach-sign-file.sh', "$tree/$os/repodata/repomd.xml", $signing_password ) == 0
+		or die "unable to sign the repomd.xml file: $!";
 
 	# write the signing public key for convenience
 	run_command( "gpg -a --export opennms\@opennms.org > $tree/$os/repodata/repomd.xml.key" ) == 0
@@ -178,7 +172,9 @@ sub make_rpm {
 		closedir(DIR);
 		for my $file (@files) {
 			mkpath(["$tree/$os/opennms"]);
-			move($repodir . '/RPMS/noarch/' . $file, "$tree/$os/opennms/");
+			if (not -e "$tree/$os/opennms/$file") {
+				move($repodir . '/RPMS/noarch/' . $file, "$tree/$os/opennms/");
+			}
 		}
 		return($files[0]);
 	}
