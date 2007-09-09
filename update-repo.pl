@@ -151,6 +151,11 @@ sub make_rpm {
 	copy("repofiles/opennms-$tree-$os.repo",    $repodir . '/SOURCES/');
 	copy("repofiles/opennms-$tree-common.repo", $repodir . '/SOURCES/');
 
+	my $conflicting_packages = "";
+	for my $treename (@trees) {
+		$conflicting_packages .= " $treename" unless ($treename eq $tree);
+	}
+
 	run_command(
 		'rpmbuild',
 		'-bb',
@@ -158,6 +163,7 @@ sub make_rpm {
 		'--define', "_topdir $repodir",
 		'--define', "_tree $tree",
 		'--define', "_osname $os",
+		'--define', "_conflicts $conflicting_packages",
 		'repo.spec'
 	) == 0 or die "unable to build rpm: $!";
 
