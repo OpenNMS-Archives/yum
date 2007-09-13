@@ -27,7 +27,7 @@ my $descriptions = {
 };
 
 my $index = IO::Handle->new();
-open($index, '>.index.html') or die "unable to write to index.html: $!";
+open($index, '>.index.html.' . $$) or die "unable to write to index.html.$$: $!";
 print $index <<END;
 <html>
  <head>
@@ -52,6 +52,11 @@ for my $tree (@trees) {
 
 	for my $os (@oses) {
 		mkpath([$tree . '/' . $os, 'caches/' . $tree . '/' . $os, 'repofiles']);
+		if ($os =~ /^rhel/) {
+			my $newos = $os;
+			$newos =~ s/rhel/centos/;
+			symlink($os, $tree . '/' . $newos);
+		}
 		write_repofile($tree, $os, $descriptions->{$os});
 
 		my $rpmname = make_rpm($tree, $os);
@@ -70,7 +75,7 @@ END
 
 close ($index);
 
-move('.index.html', 'index.html');
+move('.index.html.' . $$, 'index.html');
 
 sub run_command {
 	my @command = @_;
@@ -144,6 +149,7 @@ END
 sub make_rpm {
 	my $tree = shift;
 	my $os   = shift;
+	my $return;
 
 	for my $dir ('tmp', 'SPECS', 'SOURCES', 'RPMS', 'SRPMS', 'BUILD') {
 		mkpath([$repodir . '/' . $dir]);
@@ -182,8 +188,9 @@ sub make_rpm {
 				move($repodir . '/RPMS/noarch/' . $file, "$tree/$os/opennms/");
 			}
 		}
-		return($files[0]);
+		$return = $files[0];
 	}
 
 	rmtree($repodir);
+	return $return;
 }
