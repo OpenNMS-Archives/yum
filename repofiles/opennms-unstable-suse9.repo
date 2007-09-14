@@ -1,0 +1,16 @@
+[opennms-stable-suse9]
+name=SuSE Linux 9.x RPMs (stable)
+baseurl=http://yum.opennms.org/stable/suse9
+mirrorlist=http://yum.opennms.org/mirrorlists/stable-suse9.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
+[opennms-unstable-suse9]
+name=SuSE Linux 9.x RPMs (unstable)
+baseurl=http://yum.opennms.org/unstable/suse9
+mirrorlist=http://yum.opennms.org/mirrorlists/unstable-suse9.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+

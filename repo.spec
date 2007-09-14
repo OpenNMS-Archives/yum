@@ -1,7 +1,7 @@
 Summary: Yum repository files for %{_tree}/%{_osname} OpenNMS
 Name: opennms-repo-%{_tree}
 Version: 1.0
-Release: 3
+Release: 7
 License: GPL
 Group: Development/Tools
 URL: http://yum.opennms.org/
@@ -11,8 +11,6 @@ Source1: opennms-%{_tree}-%{_osname}.repo
 
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-
-Conflicts: %{_conflicts}
 
 %description
 Yum repository files for installing OpenNMS %{_tree} on

@@ -1,0 +1,24 @@
+[opennms-stable-rhel3]
+name=RedHat Enterprise Linux 3.x and CentOS 3.x RPMs (stable)
+baseurl=http://yum.opennms.org/stable/rhel3
+mirrorlist=http://yum.opennms.org/mirrorlists/stable-rhel3.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
+[opennms-unstable-rhel3]
+name=RedHat Enterprise Linux 3.x and CentOS 3.x RPMs (unstable)
+baseurl=http://yum.opennms.org/unstable/rhel3
+mirrorlist=http://yum.opennms.org/mirrorlists/unstable-rhel3.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
+[opennms-snapshot-rhel3]
+name=RedHat Enterprise Linux 3.x and CentOS 3.x RPMs (snapshot)
+baseurl=http://yum.opennms.org/snapshot/rhel3
+mirrorlist=http://yum.opennms.org/mirrorlists/snapshot-rhel3.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+

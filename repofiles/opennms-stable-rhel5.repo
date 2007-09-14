@@ -1,0 +1,8 @@
+[opennms-stable-rhel5]
+name=RedHat Enterprise Linux 5.x and CentOS 5.x RPMs (stable)
+baseurl=http://yum.opennms.org/stable/rhel5
+mirrorlist=http://yum.opennms.org/mirrorlists/stable-rhel5.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+

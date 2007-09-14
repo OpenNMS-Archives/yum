@@ -60,7 +60,7 @@ for my $tree (@trees) {
 		write_repofile($tree, $os, $descriptions->{$os});
 
 		my $rpmname = make_rpm($tree, $os);
-		print $index "   <li><a href='$tree/$os/opennms/$rpmname'>$descriptions->{$os}</a> (<a href='$tree/$os'>browse</a>)</li>\n";
+		print $index "   <li><a href='repofiles/$rpmname'>$descriptions->{$os}</a> (<a href='$tree/$os'>browse</a>)</li>\n";
 
 		create_repo($tree, $os);
 	}
@@ -157,11 +157,6 @@ sub make_rpm {
 	copy("repofiles/opennms-$tree-$os.repo",    $repodir . '/SOURCES/');
 	copy("repofiles/opennms-$tree-common.repo", $repodir . '/SOURCES/');
 
-	my $conflicting_packages = "";
-	for my $treename (@trees) {
-		$conflicting_packages .= " $treename" unless ($treename eq $tree);
-	}
-
 	run_command(
 		'rpmbuild',
 		'-bb',
@@ -169,7 +164,6 @@ sub make_rpm {
 		'--define', "_topdir $repodir",
 		'--define', "_tree $tree",
 		'--define', "_osname $os",
-		'--define', "_conflicts $conflicting_packages",
 		'repo.spec'
 	) == 0 or die "unable to build rpm: $!";
 
@@ -185,10 +179,10 @@ sub make_rpm {
 		for my $file (@files) {
 			mkpath(["$tree/$os/opennms"]);
 			if (not -e "$tree/$os/opennms/$file") {
-				move($repodir . '/RPMS/noarch/' . $file, "$tree/$os/opennms/");
+				move($repodir . '/RPMS/noarch/' . $file, "repofiles/opennms-repo-$tree-$os.noarch.rpm");
 			}
 		}
-		$return = $files[0];
+		$return = "opennms-repo-$tree-$os.noarch.rpm";
 	}
 
 	rmtree($repodir);

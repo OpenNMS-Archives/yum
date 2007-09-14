@@ -1,0 +1,24 @@
+[opennms-stable-suse10]
+name=SuSE Linux 10.x RPMs (stable)
+baseurl=http://yum.opennms.org/stable/suse10
+mirrorlist=http://yum.opennms.org/mirrorlists/stable-suse10.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
+[opennms-unstable-suse10]
+name=SuSE Linux 10.x RPMs (unstable)
+baseurl=http://yum.opennms.org/unstable/suse10
+mirrorlist=http://yum.opennms.org/mirrorlists/unstable-suse10.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
+[opennms-snapshot-suse10]
+name=SuSE Linux 10.x RPMs (snapshot)
+baseurl=http://yum.opennms.org/snapshot/suse10
+mirrorlist=http://yum.opennms.org/mirrorlists/snapshot-suse10.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+

@@ -1,0 +1,8 @@
+[opennms-stable-common]
+name=RPMs Common to All OpenNMS Architectures RPMs (stable)
+baseurl=http://yum.opennms.org/stable/common
+mirrorlist=http://yum.opennms.org/mirrorlists/stable-common.txt
+failovermethod=priority
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
