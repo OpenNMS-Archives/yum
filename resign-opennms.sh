@@ -1,3 +1,3 @@
 #!/bin/sh -e
 
-find . -name opennms-\*.rpm | xargs rpm --resign
+find . -name opennms-repo\*.rpm | xargs rpm --resign
