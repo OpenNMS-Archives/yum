@@ -15,6 +15,8 @@ my $repodir = '/tmp/rpm-repo-' . $$;
 
 my $descriptions = {
 	common => 'RPMs Common to All OpenNMS Architectures',
+	fc2    => 'Fedora Core 2',
+	fc3    => 'Fedora Core 3',
 	fc4    => 'Fedora Core 4',
 	fc5    => 'Fedora Core 5',
 	fc6    => 'Fedora Core 6',
@@ -99,6 +101,12 @@ sub create_repo {
 		'--cachedir', "../../caches/$tree/$os",
 		"$tree/$os",
 	) == 0 or die "unable to run createrepo: $!";
+
+	run_command(
+		'/usr/local/yum/bin/yum-arch',
+		'-v', '-v', '-l',
+		"$tree/$os",
+	) == 0 or die "unable to run yum-arch: $!";
 
 	# sign the XML file
 	run_command( './detach-sign-file.sh', "$tree/$os/repodata/repomd.xml", $signing_password ) == 0
