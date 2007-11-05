@@ -1,47 +1,73 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
  <head>
   <title>OpenNMS Yum Repository</title>
+  <link rel="stylesheet" type="text/css" href="http://opennms.svn.sourceforge.net/svnroot/opennms/opennms/trunk/opennms-webapp/src/main/webapp/css/styles.css" media="screen" />
  </head>
  <body>
-  <h1>OpenNMS Yum Repository</h1>
-  <h2>Stable</h2>
-  <ul>
-   <li>RPMs Common to All OpenNMS Architectures</a> (<a href='stable/common'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-stable-fc4.noarch.rpm'>Fedora Core 4</a> (<a href='stable/fc4'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-stable-fc5.noarch.rpm'>Fedora Core 5</a> (<a href='stable/fc5'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-stable-fc6.noarch.rpm'>Fedora Core 6</a> (<a href='stable/fc6'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-stable-fc7.noarch.rpm'>Fedora Core 7</a> (<a href='stable/fc7'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-stable-rhel3.noarch.rpm'>RedHat Enterprise Linux 3.x and CentOS 3.x</a> (<a href='stable/rhel3'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-stable-rhel4.noarch.rpm'>RedHat Enterprise Linux 4.x and CentOS 4.x</a> (<a href='stable/rhel4'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-stable-rhel5.noarch.rpm'>RedHat Enterprise Linux 5.x and CentOS 5.x</a> (<a href='stable/rhel5'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-stable-suse9.noarch.rpm'>SuSE Linux 9.x</a> (<a href='stable/suse9'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-stable-suse10.noarch.rpm'>SuSE Linux 10.x</a> (<a href='stable/suse10'>browse</a>)</li>
-  </ul>
-  <h2>Unstable</h2>
-  <ul>
-   <li>RPMs Common to All OpenNMS Architectures</a> (<a href='unstable/common'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-unstable-fc4.noarch.rpm'>Fedora Core 4</a> (<a href='unstable/fc4'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-unstable-fc5.noarch.rpm'>Fedora Core 5</a> (<a href='unstable/fc5'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-unstable-fc6.noarch.rpm'>Fedora Core 6</a> (<a href='unstable/fc6'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-unstable-fc7.noarch.rpm'>Fedora Core 7</a> (<a href='unstable/fc7'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-unstable-rhel3.noarch.rpm'>RedHat Enterprise Linux 3.x and CentOS 3.x</a> (<a href='unstable/rhel3'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-unstable-rhel4.noarch.rpm'>RedHat Enterprise Linux 4.x and CentOS 4.x</a> (<a href='unstable/rhel4'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-unstable-rhel5.noarch.rpm'>RedHat Enterprise Linux 5.x and CentOS 5.x</a> (<a href='unstable/rhel5'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-unstable-suse9.noarch.rpm'>SuSE Linux 9.x</a> (<a href='unstable/suse9'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-unstable-suse10.noarch.rpm'>SuSE Linux 10.x</a> (<a href='unstable/suse10'>browse</a>)</li>
-  </ul>
-  <h2>Snapshot</h2>
-  <ul>
-   <li>RPMs Common to All OpenNMS Architectures</a> (<a href='snapshot/common'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-snapshot-fc4.noarch.rpm'>Fedora Core 4</a> (<a href='snapshot/fc4'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-snapshot-fc5.noarch.rpm'>Fedora Core 5</a> (<a href='snapshot/fc5'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-snapshot-fc6.noarch.rpm'>Fedora Core 6</a> (<a href='snapshot/fc6'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-snapshot-fc7.noarch.rpm'>Fedora Core 7</a> (<a href='snapshot/fc7'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-snapshot-rhel3.noarch.rpm'>RedHat Enterprise Linux 3.x and CentOS 3.x</a> (<a href='snapshot/rhel3'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-snapshot-rhel4.noarch.rpm'>RedHat Enterprise Linux 4.x and CentOS 4.x</a> (<a href='snapshot/rhel4'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-snapshot-rhel5.noarch.rpm'>RedHat Enterprise Linux 5.x and CentOS 5.x</a> (<a href='snapshot/rhel5'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-snapshot-suse9.noarch.rpm'>SuSE Linux 9.x</a> (<a href='snapshot/suse9'>browse</a>)</li>
-   <li><a href='repofiles/opennms-repo-snapshot-suse10.noarch.rpm'>SuSE Linux 10.x</a> (<a href='snapshot/suse10'>browse</a>)</li>
-  </ul>
+  <div id="header">
+   <h1 id="headerlogo"><a href="http://www.opennms.org/"><img src="http://opennms.svn.sourceforge.net/svnroot/opennms/opennms/trunk/opennms-webapp/src/main/webapp/images/logo.png" alt="OpenNMS" /></a></h1>  
+   <div id="headerinfo">
+    <h1>OpenNMS Yum Repository</h1>
+   </div>
+   <hr />
+   <div class="spacer"><!-- --></div>
+  </div>
+  <div id="content">
+   <p>&nbsp;</p>
+   <p>
+    OpenNMS is available for most RPM-based distributions through Yum.  Quick-start instructions
+    are available <a href="http://www.opennms.org/index.php/Installation:Yum">on the OpenNMS
+    wiki here</a>.
+   </p>
+<h2>Stable</h2>
+<ul>
+<li>RPMs Common to All OpenNMS Architectures(<a href="stable/common">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-stable-fc4.noarch.rpm">Fedora Core 4</a> (<a href="stable/fc4">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-stable-fc5.noarch.rpm">Fedora Core 5</a> (<a href="stable/fc5">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-stable-fc6.noarch.rpm">Fedora Core 6</a> (<a href="stable/fc6">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-stable-fc7.noarch.rpm">Fedora Core 7</a> (<a href="stable/fc7">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-stable-rhel3.noarch.rpm">RedHat Enterprise Linux 3.x and CentOS 3.x</a> (<a href="stable/rhel3">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-stable-rhel4.noarch.rpm">RedHat Enterprise Linux 4.x and CentOS 4.x</a> (<a href="stable/rhel4">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-stable-rhel5.noarch.rpm">RedHat Enterprise Linux 5.x and CentOS 5.x</a> (<a href="stable/rhel5">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-stable-suse9.noarch.rpm">SuSE Linux 9.x</a> (<a href="stable/suse9">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-stable-suse10.noarch.rpm">SuSE Linux 10.x</a> (<a href="stable/suse10">browse</a>)</li>
+</ul>
+<h2>Unstable</h2>
+<ul>
+<li>RPMs Common to All OpenNMS Architectures(<a href="unstable/common">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-unstable-fc4.noarch.rpm">Fedora Core 4</a> (<a href="unstable/fc4">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-unstable-fc5.noarch.rpm">Fedora Core 5</a> (<a href="unstable/fc5">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-unstable-fc6.noarch.rpm">Fedora Core 6</a> (<a href="unstable/fc6">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-unstable-fc7.noarch.rpm">Fedora Core 7</a> (<a href="unstable/fc7">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-unstable-rhel3.noarch.rpm">RedHat Enterprise Linux 3.x and CentOS 3.x</a> (<a href="unstable/rhel3">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-unstable-rhel4.noarch.rpm">RedHat Enterprise Linux 4.x and CentOS 4.x</a> (<a href="unstable/rhel4">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-unstable-rhel5.noarch.rpm">RedHat Enterprise Linux 5.x and CentOS 5.x</a> (<a href="unstable/rhel5">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-unstable-suse9.noarch.rpm">SuSE Linux 9.x</a> (<a href="unstable/suse9">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-unstable-suse10.noarch.rpm">SuSE Linux 10.x</a> (<a href="unstable/suse10">browse</a>)</li>
+</ul>
+<h2>Snapshot</h2>
+<ul>
+<li>RPMs Common to All OpenNMS Architectures(<a href="snapshot/common">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-snapshot-fc4.noarch.rpm">Fedora Core 4</a> (<a href="snapshot/fc4">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-snapshot-fc5.noarch.rpm">Fedora Core 5</a> (<a href="snapshot/fc5">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-snapshot-fc6.noarch.rpm">Fedora Core 6</a> (<a href="snapshot/fc6">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-snapshot-fc7.noarch.rpm">Fedora Core 7</a> (<a href="snapshot/fc7">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-snapshot-rhel3.noarch.rpm">RedHat Enterprise Linux 3.x and CentOS 3.x</a> (<a href="snapshot/rhel3">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-snapshot-rhel4.noarch.rpm">RedHat Enterprise Linux 4.x and CentOS 4.x</a> (<a href="snapshot/rhel4">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-snapshot-rhel5.noarch.rpm">RedHat Enterprise Linux 5.x and CentOS 5.x</a> (<a href="snapshot/rhel5">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-snapshot-suse9.noarch.rpm">SuSE Linux 9.x</a> (<a href="snapshot/suse9">browse</a>)</li>
+<li><a href="repofiles/opennms-repo-snapshot-suse10.noarch.rpm">SuSE Linux 10.x</a> (<a href="snapshot/suse10">browse</a>)</li>
+</ul>
+  </div>
+  <div id="prefooter"></div>
+
+  <div id="footer">
+   <p>
+    OpenNMS Copyright &copy; 2002-2007 <a href="http://www.opennms.com/">The OpenNMS Group, Inc.</a>
+    OpenNMS&reg; is a registered trademark of <a href="http://www.opennms.com">The OpenNMS Group, Inc.</a>
+   </p>
+  </div>
+
  </body>
 </html>

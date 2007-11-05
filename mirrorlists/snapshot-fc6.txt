@@ -1,2 +1,3 @@
+http://opennms.sourceforge.net/yum/snapshot/fc6
 http://turbine.slackworks.com/~ranger/opennms-yum/snapshot/fc6
 http://yum.opennms.org/snapshot/fc6

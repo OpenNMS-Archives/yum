@@ -28,25 +28,47 @@ my $descriptions = {
 	suse10 => 'SuSE Linux 10.x',
 };
 
+my $mirror_roots = [
+	'http://opennms.sourceforge.net/yum',
+	'http://turbine.slackworks.com/~ranger/opennms-yum',
+	'http://yum.opennms.org',
+];
+
 my $index = IO::Handle->new();
 open($index, '>.index.html.' . $$) or die "unable to write to index.html.$$: $!";
 print $index <<END;
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
  <head>
   <title>OpenNMS Yum Repository</title>
+  <link rel="stylesheet" type="text/css" href="http://opennms.svn.sourceforge.net/svnroot/opennms/opennms/trunk/opennms-webapp/src/main/webapp/css/styles.css" media="screen" />
  </head>
  <body>
-  <h1>OpenNMS Yum Repository</h1>
+  <div id="header">
+   <h1 id="headerlogo"><a href="http://www.opennms.org/"><img src="http://opennms.svn.sourceforge.net/svnroot/opennms/opennms/trunk/opennms-webapp/src/main/webapp/images/logo.png" alt="OpenNMS" /></a></h1>  
+   <div id="headerinfo">
+    <h1>OpenNMS Yum Repository</h1>
+   </div>
+   <hr />
+   <div class="spacer"><!-- --></div>
+  </div>
+  <div id="content">
+   <p>&nbsp;</p>
+   <p>
+    OpenNMS is available for most RPM-based distributions through Yum.  Quick-start instructions
+    are available <a href="http://www.opennms.org/index.php/Installation:Yum">on the OpenNMS
+    wiki here</a>.
+   </p>
 END
 
 my @createrepo = qw(createrepo --verbose --pretty);
 
 for my $tree (@trees) {
 	my $title = ucfirst($tree);
-	print $index "  <h2>$title</h2>\n";
-	print $index "  <ul>\n";
+	print $index "<h2>$title</h2>\n";
+	print $index "<ul>\n";
 
-	print $index "   <li>$descriptions->{'common'}</a> (<a href='$tree/common'>browse</a>)</li>\n";
+	print $index "<li>$descriptions->{'common'}(<a href=\"$tree/common\">browse</a>)</li>\n";
 	mkpath([$tree . '/common', 'caches/' . $tree . '/common', 'repofiles']);
 	create_repo($tree, 'common');
 
@@ -62,15 +84,25 @@ for my $tree (@trees) {
 		write_repofile($tree, $os, $descriptions->{$os});
 
 		my $rpmname = make_rpm($tree, $os);
-		print $index "   <li><a href='repofiles/$rpmname'>$descriptions->{$os}</a> (<a href='$tree/$os'>browse</a>)</li>\n";
+		print $index "<li><a href=\"repofiles/$rpmname\">$descriptions->{$os}</a> (<a href=\"$tree/$os\">browse</a>)</li>\n";
 
 		create_repo($tree, $os);
 	}
 
-	print $index "  </ul>\n";
+	print $index "</ul>\n";
 }
 
 print $index <<END;
+  </div>
+  <div id="prefooter"></div>
+
+  <div id="footer">
+   <p>
+    OpenNMS Copyright \&copy; 2002-2007 <a href="http://www.opennms.com/">The OpenNMS Group, Inc.</a>
+    OpenNMS\&reg; is a registered trademark of <a href="http://www.opennms.com">The OpenNMS Group, Inc.</a>
+   </p>
+  </div>
+
  </body>
 </html>
 END
@@ -146,12 +178,12 @@ END
 
 	close($repofile);
 
-	if (not -f "mirrorlists/$tree-$os.txt") {
-		my $mirrorlist = IO::Handle->new();
-		open ($mirrorlist, ">mirrorlists/$tree-$os.txt") or die "unable to write to mirrorlists/$tree-$os.txt: $!";
-		print $mirrorlist "http://yum.opennms.org/$tree/$os\n";
-		close ($mirrorlist);
+	my $mirrorlist = IO::Handle->new();
+	open ($mirrorlist, ">mirrorlists/$tree-$os.txt") or die "unable to write to mirrorlists/$tree-$os.txt: $!";
+	for my $root (@$mirror_roots) {
+		print $mirrorlist "$root/$tree/$os\n";
 	}
+	close ($mirrorlist);
 }
 
 sub make_rpm {
