@@ -140,6 +140,19 @@ sub create_repo {
 		"$tree/$os",
 	) == 0 or die "unable to run yum-arch: $!";
 
+	chdir("$tree/$os");
+	if (-x '/usr/bin/genhdlist') {
+		run_command(
+			'/usr/bin/genhdlist',
+			'--nobadrpm',
+		) == 0 or die "unable to run genhdlist: $!";
+	}
+	unlink('list');
+	mkpath("media_info");
+	move("hdlist.cz", "media_info/hdlist.cz");
+	move("synthesis.hdlist.cz", "media_info/synthesis.hdlist.cz");
+	chdir("../..");
+
 	# sign the XML file
 	run_command( './detach-sign-file.sh', "$tree/$os/repodata/repomd.xml", $signing_password ) == 0
 		or die "unable to sign the repomd.xml file: $!";
