@@ -3,29 +3,37 @@
 use strict;
 use warnings;
 
+use File::Basename;
 use File::Copy;
+use File::Find;
 use File::Path;
 use IO::Handle;
 
 my $signing_password = shift @ARGV;
 
 my @trees   = qw(stable unstable snapshot);
-my @oses    = qw(fc4 fc5 fc6 fc7 rhel3 rhel4 rhel5 suse9 suse10);
+my @oses    = qw(fc4 fc5 fc6 fc7 mandriva2007 mandriva2008 rhel3 rhel4 rhel5 suse9 suse10);
 my $repodir = '/tmp/rpm-repo-' . $$;
 
+if (@ARGV) {
+	@oses = @ARGV;
+}
+
 my $descriptions = {
-	common => 'RPMs Common to All OpenNMS Architectures',
-	fc2    => 'Fedora Core 2',
-	fc3    => 'Fedora Core 3',
-	fc4    => 'Fedora Core 4',
-	fc5    => 'Fedora Core 5',
-	fc6    => 'Fedora Core 6',
-	fc7    => 'Fedora Core 7',
-	rhel3  => 'RedHat Enterprise Linux 3.x and CentOS 3.x',
-	rhel4  => 'RedHat Enterprise Linux 4.x and CentOS 4.x',
-	rhel5  => 'RedHat Enterprise Linux 5.x and CentOS 5.x',
-	suse9  => 'SuSE Linux 9.x',
-	suse10 => 'SuSE Linux 10.x',
+	common       => 'RPMs Common to All OpenNMS Architectures',
+	fc2          => 'Fedora Core 2',
+	fc3          => 'Fedora Core 3',
+	fc4          => 'Fedora Core 4',
+	fc5          => 'Fedora Core 5',
+	fc6          => 'Fedora Core 6',
+	fc7          => 'Fedora Core 7',
+	mandriva2007 => 'Mandriva 2007',
+	mandriva2008 => 'Mandriva 2008',
+	rhel3        => 'RedHat Enterprise Linux 3.x and CentOS 3.x',
+	rhel4        => 'RedHat Enterprise Linux 4.x and CentOS 4.x',
+	rhel5        => 'RedHat Enterprise Linux 5.x and CentOS 5.x',
+	suse9        => 'SuSE Linux 9.x',
+	suse10       => 'SuSE Linux 10.x',
 };
 
 my $mirror_roots = [
@@ -84,7 +92,11 @@ for my $tree (@trees) {
 		write_repofile($tree, $os, $descriptions->{$os});
 
 		my $rpmname = make_rpm($tree, $os);
-		print $index "<li><a href=\"repofiles/$rpmname\">$descriptions->{$os}</a> (<a href=\"$tree/$os\">browse</a>)</li>\n";
+		if (defined $rpmname) {
+			print $index "<li><a href=\"repofiles/$rpmname\">$descriptions->{$os}</a> (<a href=\"$tree/$os\">browse</a>)</li>\n";
+		} else {
+			print $index "<li>$descriptions->{$os} (<a href=\"$tree/$os\">browse</a>)</li>\n";
+		}
 
 		create_repo($tree, $os);
 	}
@@ -124,48 +136,87 @@ sub create_repo {
 
 	run_command('rm', '-rf', "$tree/$os/.olddata");
 
+	if ($os =~ /^mandriva/) {
 
-	# generate the repo
-	run_command(
-		@createrepo,
-		'--baseurl', "http://yum.opennms.org/$tree/$os",
-		'--outputdir', "$tree/$os",
-		'--cachedir', "../../caches/$tree/$os",
-		"$tree/$os",
-	) == 0 or die "unable to run createrepo: $!";
+		chdir("$tree/$os");
 
-	run_command(
-		'/usr/local/yum/bin/yum-arch',
-		'-v', '-v', '-l',
-		"$tree/$os",
-	) == 0 or die "unable to run yum-arch: $!";
+		make_symlinks("../common", ".");
+		clean_symlinks(".");
 
-	chdir("$tree/$os");
-	if (-x '/usr/bin/genhdlist') {
 		run_command(
-			'/usr/bin/genhdlist',
+			'../../genhdlist',
 			'--nobadrpm',
 		) == 0 or die "unable to run genhdlist: $!";
+
+		unlink('list');
+		mkpath("media_info");
+		move("hdlist.cz", "media_info/hdlist.cz");
+		move("synthesis.hdlist.cz", "media_info/synthesis.hdlist.cz");
+		chdir("media_info");
+		symlink("../../../OPENNMS-GPG-KEY", "pubkey");
+		chdir("..");
+
+		chdir("../..");
+
+	} else {
+
+		# generate the repo
+		run_command(
+			@createrepo,
+			'--baseurl', "http://yum.opennms.org/$tree/$os",
+			'--outputdir', "$tree/$os",
+			'--cachedir', "../../caches/$tree/$os",
+			"$tree/$os",
+		) == 0 or die "unable to run createrepo: $!";
+
+		run_command(
+			'/usr/local/yum/bin/yum-arch',
+			'-v', '-v', '-l',
+			"$tree/$os",
+		) == 0 or die "unable to run yum-arch: $!";
+
+		# sign the XML file
+		run_command( './detach-sign-file.sh', "$tree/$os/repodata/repomd.xml", $signing_password ) == 0
+			or die "unable to sign the repomd.xml file: $!";
+
+		# write the signing public key for convenience
+		run_command( "gpg -a --export opennms\@opennms.org > $tree/$os/repodata/repomd.xml.key" ) == 0
+			or die "unable to export the public key: $!";
+
 	}
-	unlink('list');
-	mkpath("media_info");
-	move("hdlist.cz", "media_info/hdlist.cz");
-	move("synthesis.hdlist.cz", "media_info/synthesis.hdlist.cz");
-	chdir("../..");
 
-	# sign the XML file
-	run_command( './detach-sign-file.sh', "$tree/$os/repodata/repomd.xml", $signing_password ) == 0
-		or die "unable to sign the repomd.xml file: $!";
+}
 
-	# write the signing public key for convenience
-	run_command( "gpg -a --export opennms\@opennms.org > $tree/$os/repodata/repomd.xml.key" ) == 0
-		or die "unable to export the public key: $!";
+sub make_symlinks {
+	my $from = shift;
+	my $to   = shift;
+
+	find({
+		wanted => sub {
+			my $filename = $_;
+			my $basename = basename($filename);
+			symlink($File::Find::name, $to . '/' . $basename) if (/\.rpm$/);
+		},
+		no_chdir => 1,
+	}, $from);
+}
+
+sub clean_symlinks {
+	my $dir = shift;
+
+	find ({
+		wanted => sub {
+			unlink($_) if (not -e $_);
+		},
+	}, $dir);
 }
 
 sub write_repofile {
 	my $tree        = shift;
 	my $os          = shift;
 	my $description = shift;
+
+	return if ($os =~ /^mandriva/);
 
 	my @ts;
 	for my $t (@trees) {
@@ -203,6 +254,8 @@ sub make_rpm {
 	my $tree = shift;
 	my $os   = shift;
 	my $return;
+
+	return if ($os =~ /^mandriva/);
 
 	for my $dir ('tmp', 'SPECS', 'SOURCES', 'RPMS', 'SRPMS', 'BUILD') {
 		mkpath([$repodir . '/' . $dir]);
