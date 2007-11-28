@@ -18,5 +18,5 @@ fi
 DIR=`dirname $FILE`
 pushd "$DIR" >/dev/null 2>&1
 	FILENAME=`basename $FILE`
-	expect -c "set timeout -1; spawn gpg --yes -a --detach-sign $FILENAME; match_max 100000; expect -exact \"Enter passphrase: \"; send -- \"$PASSWORD\\r\"; expect eof"
+	expect -c "set timeout -1; spawn gpg --homedir ../.gnupg --yes -a --detach-sign $FILENAME; match_max 100000; expect -exact \"Enter passphrase: \"; send -- \"$PASSWORD\\r\"; expect eof"
 popd
