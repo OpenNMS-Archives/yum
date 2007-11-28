@@ -180,7 +180,11 @@ sub create_repo {
 			or die "unable to sign the repomd.xml file: $!";
 
 		# write the signing public key for convenience
-		run_command( "gpg --homedir ../.gnupg -a --export opennms\@opennms.org > $tree/$os/repodata/repomd.xml.key" ) == 0
+		my $gpghomedircmd = "";
+		if (-d '../.gnupg') {
+			$gpghomedircmd = "--homedir ../.gnupg";
+		}
+		run_command( "gpg $gpghomedircmd -a --export opennms\@opennms.org > $tree/$os/repodata/repomd.xml.key" ) == 0
 			or die "unable to export the public key: $!";
 
 	}
