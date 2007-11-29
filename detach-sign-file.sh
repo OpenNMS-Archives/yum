@@ -7,7 +7,7 @@ FILE="$1"; shift
 PASSWORD="$1"; shift
 
 if [ -d "../.gnupg" ]; then
-	GPGHOMEDIRCMD="--homedir ../.gnupg"
+	GPGHOMEDIRCMD="--homedir ../.gnupg --default-key opennms@opennms.org"
 fi
 
 if [ ! -f "$FILE" ]; then
@@ -19,8 +19,4 @@ if [ -z "$PASSWORD" ]; then
 	exit 1
 fi
 
-DIR=`dirname $FILE`
-pushd "$DIR" >/dev/null 2>&1
-	FILENAME=`basename $FILE`
-	expect -c "set timeout -1; spawn gpg $GPGHOMEDIRCMD --yes -a --detach-sign $FILENAME; match_max 100000; expect -exact \"Enter passphrase: \"; send -- \"$PASSWORD\\r\"; expect eof"
-popd
+expect -c "set timeout -1; spawn gpg $GPGHOMEDIRCMD --yes -a --detach-sign $FILE; match_max 100000; expect -exact \"Enter passphrase: \"; send -- \"$PASSWORD\\r\"; expect eof"
