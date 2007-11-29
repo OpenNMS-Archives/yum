@@ -8,6 +8,7 @@ PASSWORD="$1"; shift
 
 if [ -d "../.gnupg" ]; then
 	GPGHOMEDIRCMD="--homedir ../.gnupg"
+fi
 
 if [ ! -f "$FILE" ]; then
 	exit 1
