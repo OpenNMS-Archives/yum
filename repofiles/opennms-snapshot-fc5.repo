@@ -1,15 +1,15 @@
 [opennms-stable-fc5]
 name=Fedora Core 5 RPMs (stable)
-baseurl=http://yum.opennms.org/flat/stable/fc5
-mirrorlist=http://yum.opennms.org/flat/stable/fc5/mirrorlist.txt
+baseurl=http://yum.opennms.org/stable/fc5
+mirrorlist=http://yum.opennms.org/mirrorlists/stable-fc5.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-unstable-fc5]
 name=Fedora Core 5 RPMs (unstable)
-baseurl=http://yum.opennms.org/flat/unstable/fc5
-mirrorlist=http://yum.opennms.org/flat/unstable/fc5/mirrorlist.txt
+baseurl=http://yum.opennms.org/unstable/fc5
+mirrorlist=http://yum.opennms.org/mirrorlists/unstable-fc5.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

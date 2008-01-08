@@ -240,6 +240,7 @@ sub write_repofile {
 	my $description = shift;
 
 	return if ($os =~ /^mandriva/);
+	my ($baseurl, $mirrorlist);
 
 	my @ts;
 	for my $t (@trees) {
@@ -251,20 +252,19 @@ sub write_repofile {
 	open($repofile, ">repofiles/opennms-$tree-$os.repo") or die "unable to write to repofiles/opennms-$tree-$os.repo: $!";
 
 	for my $treename (@ts) {
-		my $baseurl = "http://yum.opennms.org/flat/$treename/$os";
-		my $mirrorlist = "http://yum.opennms.org/flat/$treename/$os/mirrorlist.txt";
+#		can't do this for now since it ends up causing 404s  :(
+#		my $baseurl = "http://yum.opennms.org/flat/$treename/$os";
+#		my $mirrorlist = "http://yum.opennms.org/flat/$treename/$os/mirrorlist.txt";
 
-		if ($treename eq "snapshot") {
-			$baseurl = "http://yum.opennms.org/$treename/$os";
-			$mirrorlist = "http://yum.opennms.org/mirrorlists/$treename-$os.txt";
-		}
+		$baseurl = "http://yum.opennms.org/$treename/$os";
+		$mirrorlist = "http://yum.opennms.org/mirrorlists/$treename-$os.txt";
 
 		print $repofile <<END;
 [opennms-$treename-$os]
 name=$description RPMs ($treename)
 baseurl=$baseurl
 mirrorlist=$mirrorlist
-failovermethod=priority
+failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 

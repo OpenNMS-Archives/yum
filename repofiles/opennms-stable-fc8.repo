@@ -1,7 +1,7 @@
 [opennms-stable-fc8]
 name=Fedora Core 8 RPMs (stable)
-baseurl=http://yum.opennms.org/flat/stable/fc8
-mirrorlist=http://yum.opennms.org/flat/stable/fc8/mirrorlist.txt
+baseurl=http://yum.opennms.org/stable/fc8
+mirrorlist=http://yum.opennms.org/mirrorlists/stable-fc8.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
