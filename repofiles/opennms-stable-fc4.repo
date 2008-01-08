@@ -1,7 +1,7 @@
 [opennms-stable-fc4]
 name=Fedora Core 4 RPMs (stable)
-baseurl=http://yum.opennms.org/stable/fc4
-mirrorlist=http://yum.opennms.org/mirrorlists/stable-fc4.txt
+baseurl=http://yum.opennms.org/flat/stable/fc4
+mirrorlist=http://yum.opennms.org/flat/stable/fc4/mirrorlist.txt
 failovermethod=priority
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

@@ -1,7 +1,7 @@
 [opennms-stable-fc7]
 name=Fedora Core 7 RPMs (stable)
-baseurl=http://yum.opennms.org/stable/fc7
-mirrorlist=http://yum.opennms.org/mirrorlists/stable-fc7.txt
+baseurl=http://yum.opennms.org/flat/stable/fc7
+mirrorlist=http://yum.opennms.org/flat/stable/fc7/mirrorlist.txt
 failovermethod=priority
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

@@ -1,15 +1,15 @@
 [opennms-stable-fc6]
 name=Fedora Core 6 RPMs (stable)
-baseurl=http://yum.opennms.org/stable/fc6
-mirrorlist=http://yum.opennms.org/mirrorlists/stable-fc6.txt
+baseurl=http://yum.opennms.org/flat/stable/fc6
+mirrorlist=http://yum.opennms.org/flat/stable/fc6/mirrorlist.txt
 failovermethod=priority
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-unstable-fc6]
 name=Fedora Core 6 RPMs (unstable)
-baseurl=http://yum.opennms.org/unstable/fc6
-mirrorlist=http://yum.opennms.org/mirrorlists/unstable-fc6.txt
+baseurl=http://yum.opennms.org/flat/unstable/fc6
+mirrorlist=http://yum.opennms.org/flat/unstable/fc6/mirrorlist.txt
 failovermethod=priority
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

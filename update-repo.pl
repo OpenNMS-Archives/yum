@@ -12,7 +12,7 @@ use IO::Handle;
 my $signing_password = shift @ARGV;
 
 my @trees   = qw(stable unstable snapshot);
-my @oses    = qw(fc4 fc5 fc6 fc7 mandriva2007 mandriva2008 rhel3 rhel4 rhel5 suse9 suse10);
+my @oses    = qw(fc4 fc5 fc6 fc7 fc8 mandriva2007 mandriva2008 rhel3 rhel4 rhel5 suse9 suse10);
 my $repodir = '/tmp/rpm-repo-' . $$;
 
 if (@ARGV) {
@@ -27,6 +27,7 @@ my $descriptions = {
 	fc5          => 'Fedora Core 5',
 	fc6          => 'Fedora Core 6',
 	fc7          => 'Fedora Core 7',
+	fc8          => 'Fedora Core 8',
 	mandriva2007 => 'Mandriva 2007',
 	mandriva2008 => 'Mandriva 2008',
 	rhel3        => 'RedHat Enterprise Linux 3.x and CentOS 3.x',
@@ -49,11 +50,11 @@ print $index <<END;
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
  <head>
   <title>OpenNMS Yum Repository</title>
-  <link rel="stylesheet" type="text/css" href="http://opennms.svn.sourceforge.net/svnroot/opennms/opennms/trunk/opennms-webapp/src/main/webapp/css/styles.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
  </head>
  <body>
   <div id="header">
-   <h1 id="headerlogo"><a href="http://www.opennms.org/"><img src="http://opennms.svn.sourceforge.net/svnroot/opennms/opennms/trunk/opennms-webapp/src/main/webapp/images/logo.png" alt="OpenNMS" /></a></h1>  
+   <h1 id="headerlogo"><a href="http://www.opennms.org/"><img src="logo.png" alt="OpenNMS" /></a></h1>  
    <div id="headerinfo">
     <h1>OpenNMS Yum Repository</h1>
    </div>
@@ -77,13 +78,13 @@ for my $tree (@trees) {
 	print $index "<ul>\n";
 
 	print $index "<li>$descriptions->{'common'}(<a href=\"$tree/common\">browse</a>)</li>\n";
-	mkpath([$tree . '/common', 'caches/' . $tree . '/common', 'repofiles']);
+	mkpath([$tree . '/common', 'repofiles']);
 	create_repo($tree, 'common');
 
 	write_repofile($tree, 'common', $descriptions->{'common'});
 
 	for my $os (@oses) {
-		mkpath([$tree . '/' . $os, 'caches/' . $tree . '/' . $os, 'repofiles']);
+		mkpath([$tree . '/' . $os, 'repofiles']);
 		if ($os =~ /^rhel/) {
 			my $newos = $os;
 			$newos =~ s/rhel/centos/;
@@ -161,19 +162,37 @@ sub create_repo {
 	} else {
 
 		# generate the repo
+
+		mkpath "$tree/$os";
+		mkpath "caches/$tree/$os";
 		run_command(
 			@createrepo,
-			'--baseurl', "http://yum.opennms.org/$tree/$os",
+#			'--baseurl', "http://yum.opennms.org/$tree/$os",
 			'--outputdir', "$tree/$os",
 			'--cachedir', "../../caches/$tree/$os",
 			"$tree/$os",
 		) == 0 or die "unable to run createrepo: $!";
 
+		mkpath "flat/$tree/$os";
+		mkpath "caches/flat/$tree/$os";
+		run_command( './make-flat.pl' ) == 0 or die "unable to make flat archive: $!";
 		run_command(
-			'/usr/local/yum/bin/yum-arch',
-			'-v', '-v', '-l',
-			"$tree/$os",
-		) == 0 or die "unable to run yum-arch: $!";
+			@createrepo,
+#			'--baseurl', "http://yum.opennms.org/$tree/$os",
+			'--outputdir', "flat/$tree/$os",
+			'--cachedir', "../../../caches/flat/$tree/$os",
+			"flat/$tree/$os",
+		) == 0 or die "unable to run createrepo: $!";
+
+		if (-x '/usr/local/yum/bin/yum-arch') {
+			run_command(
+				'/usr/local/yum/bin/yum-arch',
+				'-v', '-v', '-l',
+				"$tree/$os",
+			) == 0 or die "unable to run yum-arch: $!";
+		} else {
+			warn "yum-arch was not executable!";
+		}
 
 		# sign the XML file
 		run_command( './detach-sign-file.sh', "$tree/$os/repodata/repomd.xml", $signing_password ) == 0
@@ -232,11 +251,19 @@ sub write_repofile {
 	open($repofile, ">repofiles/opennms-$tree-$os.repo") or die "unable to write to repofiles/opennms-$tree-$os.repo: $!";
 
 	for my $treename (@ts) {
+		my $baseurl = "http://yum.opennms.org/flat/$treename/$os";
+		my $mirrorlist = "http://yum.opennms.org/flat/$treename/$os/mirrorlist.txt";
+
+		if ($treename eq "snapshot") {
+			$baseurl = "http://yum.opennms.org/$treename/$os";
+			$mirrorlist = "http://yum.opennms.org/mirrorlists/$treename-$os.txt";
+		}
+
 		print $repofile <<END;
 [opennms-$treename-$os]
 name=$description RPMs ($treename)
-baseurl=http://yum.opennms.org/$treename/$os
-mirrorlist=http://yum.opennms.org/mirrorlists/$treename-$os.txt
+baseurl=$baseurl
+mirrorlist=$mirrorlist
 failovermethod=priority
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
