@@ -2,7 +2,7 @@
 name=RedHat Enterprise Linux 4.x and CentOS 4.x RPMs (stable)
 baseurl=http://yum.opennms.org/flat/stable/rhel4
 mirrorlist=http://yum.opennms.org/flat/stable/rhel4/mirrorlist.txt
-failovermethod=priority
+failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
@@ -10,7 +10,7 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 name=RedHat Enterprise Linux 4.x and CentOS 4.x RPMs (unstable)
 baseurl=http://yum.opennms.org/flat/unstable/rhel4
 mirrorlist=http://yum.opennms.org/flat/unstable/rhel4/mirrorlist.txt
-failovermethod=priority
+failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
@@ -18,7 +18,7 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 name=RedHat Enterprise Linux 4.x and CentOS 4.x RPMs (snapshot)
 baseurl=http://yum.opennms.org/snapshot/rhel4
 mirrorlist=http://yum.opennms.org/mirrorlists/snapshot-rhel4.txt
-failovermethod=priority
+failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 

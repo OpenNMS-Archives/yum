@@ -2,7 +2,7 @@
 name=Fedora Core 4 RPMs (stable)
 baseurl=http://yum.opennms.org/flat/stable/fc4
 mirrorlist=http://yum.opennms.org/flat/stable/fc4/mirrorlist.txt
-failovermethod=priority
+failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
@@ -10,7 +10,7 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 name=Fedora Core 4 RPMs (unstable)
 baseurl=http://yum.opennms.org/flat/unstable/fc4
 mirrorlist=http://yum.opennms.org/flat/unstable/fc4/mirrorlist.txt
-failovermethod=priority
+failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
