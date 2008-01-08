@@ -1,3 +1,2 @@
 http://opennms.sourceforge.net/yum/unstable/fc8
-http://turbine.slackworks.com/~ranger/opennms-yum/unstable/fc8
 http://yum.opennms.org/unstable/fc8

@@ -264,7 +264,7 @@ sub write_repofile {
 name=$description RPMs ($treename)
 baseurl=$baseurl
 mirrorlist=$mirrorlist
-failovermethod=priority
+failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 

@@ -1,3 +1,2 @@
 http://opennms.sourceforge.net/yum/stable/suse9
-http://turbine.slackworks.com/~ranger/opennms-yum/stable/suse9
 http://yum.opennms.org/stable/suse9

@@ -1,3 +1,2 @@
 http://opennms.sourceforge.net/yum/stable/fc6
-http://turbine.slackworks.com/~ranger/opennms-yum/stable/fc6
 http://yum.opennms.org/stable/fc6
