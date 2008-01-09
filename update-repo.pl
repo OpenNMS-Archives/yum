@@ -39,7 +39,6 @@ my $descriptions = {
 
 my $mirror_roots = [
 	'http://opennms.sourceforge.net/yum',
-	'http://turbine.slackworks.com/~ranger/opennms-yum',
 	'http://yum.opennms.org',
 ];
 
