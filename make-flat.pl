@@ -66,3 +66,12 @@ while (my $file = <FILE>) {
 	close (FILEOUT);
 }
 close (FILE);
+
+open (FILE, "find flat -type l |") or die "can't run find: $!\n";
+while (my $file = <FILE>) {
+	chomp($file);
+	if (! -r $file) {
+		unlink($file);
+	}
+}
+close (FILE);
