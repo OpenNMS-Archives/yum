@@ -252,8 +252,8 @@ sub write_repofile {
 
 	for my $treename (@ts) {
 #		can't do this for now since it ends up causing 404s  :(
-#		my $baseurl = "http://yum.opennms.org/flat/$treename/$os";
-#		my $mirrorlist = "http://yum.opennms.org/flat/$treename/$os/mirrorlist.txt";
+#		$baseurl = "http://yum.opennms.org/flat/$treename/$os";
+#		$mirrorlist = "http://yum.opennms.org/flat/$treename/$os/mirrorlist.txt";
 
 		$baseurl = "http://yum.opennms.org/$treename/$os";
 		$mirrorlist = "http://yum.opennms.org/mirrorlists/$treename-$os.txt";
@@ -272,12 +272,12 @@ END
 
 	close($repofile);
 
-	my $mirrorlist = IO::Handle->new();
-	open ($mirrorlist, ">mirrorlists/$tree-$os.txt") or die "unable to write to mirrorlists/$tree-$os.txt: $!";
+	my $mirrorfile = IO::Handle->new();
+	open ($mirrorfile, ">mirrorlists/$tree-$os.txt") or die "unable to write to mirrorlists/$tree-$os.txt: $!";
 	for my $root (@$mirror_roots) {
-		print $mirrorlist "$root/$tree/$os\n";
+		print $mirrorfile "$root/$tree/$os\n";
 	}
-	close ($mirrorlist);
+	close ($mirrorfile);
 }
 
 sub make_rpm {

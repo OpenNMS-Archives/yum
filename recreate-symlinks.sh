@@ -27,6 +27,12 @@ pushd "$FROM" >/dev/null 2>&1
 			elif [ -r "../../../$FROM/$LINE" ]; then
 				echo "linking ../../../$FROM/$LINE"
 				ln -s "../../../$FROM/$LINE" .
+			elif [ -r "../../$FROM/$LINE" ]; then
+				echo "linking ../../$FROM/$LINE"
+				ln -s "../../$FROM/$LINE" .
+			elif [ -r "../$FROM/$LINE" ]; then
+				echo "linking ../$FROM/$LINE"
+				ln -s "../$FROM/$LINE" .
 			else
 				warn "can't find $LINE"
 			fi
