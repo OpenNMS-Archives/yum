@@ -1,2 +1,1 @@
-http://opennms.sourceforge.net/yum/stable/suse10
 http://yum.opennms.org/stable/suse10

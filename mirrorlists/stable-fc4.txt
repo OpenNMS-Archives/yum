@@ -1,2 +1,1 @@
-http://opennms.sourceforge.net/yum/stable/fc4
 http://yum.opennms.org/stable/fc4

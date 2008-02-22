@@ -6,6 +6,14 @@ failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
+[opennms-testing-rhel5]
+name=RedHat Enterprise Linux 5.x and CentOS 5.x RPMs (testing)
+baseurl=http://yum.opennms.org/testing/rhel5
+mirrorlist=http://yum.opennms.org/mirrorlists/testing-rhel5.txt
+failovermethod=roundrobin
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
 [opennms-unstable-rhel5]
 name=RedHat Enterprise Linux 5.x and CentOS 5.x RPMs (unstable)
 baseurl=http://yum.opennms.org/unstable/rhel5

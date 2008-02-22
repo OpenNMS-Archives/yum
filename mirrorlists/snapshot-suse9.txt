@@ -1,2 +1,1 @@
-http://opennms.sourceforge.net/yum/snapshot/suse9
 http://yum.opennms.org/snapshot/suse9

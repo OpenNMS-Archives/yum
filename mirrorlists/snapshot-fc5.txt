@@ -1,2 +1,1 @@
-http://opennms.sourceforge.net/yum/snapshot/fc5
 http://yum.opennms.org/snapshot/fc5

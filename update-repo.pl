@@ -11,7 +11,7 @@ use IO::Handle;
 
 my $signing_password = shift @ARGV;
 
-my @trees   = qw(stable unstable snapshot);
+my @trees   = qw(stable testing unstable snapshot);
 my @oses    = qw(fc4 fc5 fc6 fc7 fc8 mandriva2007 mandriva2008 rhel3 rhel4 rhel5 suse9 suse10);
 my $repodir = '/tmp/rpm-repo-' . $$;
 
@@ -38,7 +38,6 @@ my $descriptions = {
 };
 
 my $mirror_roots = [
-	'http://opennms.sourceforge.net/yum',
 	'http://yum.opennms.org',
 ];
 
@@ -170,17 +169,6 @@ sub create_repo {
 			'--outputdir', "$tree/$os",
 			'--cachedir', "../../caches/$tree/$os",
 			"$tree/$os",
-		) == 0 or die "unable to run createrepo: $!";
-
-		mkpath "flat/$tree/$os";
-		mkpath "caches/flat/$tree/$os";
-		run_command( './make-flat.pl' ) == 0 or die "unable to make flat archive: $!";
-		run_command(
-			@createrepo,
-#			'--baseurl', "http://yum.opennms.org/$tree/$os",
-			'--outputdir', "flat/$tree/$os",
-			'--cachedir', "../../../caches/flat/$tree/$os",
-			"flat/$tree/$os",
 		) == 0 or die "unable to run createrepo: $!";
 
 		if (-x '/usr/local/yum/bin/yum-arch') {

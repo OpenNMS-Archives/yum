@@ -1,2 +1,1 @@
-http://opennms.sourceforge.net/yum/snapshot/fc8
 http://yum.opennms.org/snapshot/fc8

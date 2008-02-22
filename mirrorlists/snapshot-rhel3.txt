@@ -1,2 +1,1 @@
-http://opennms.sourceforge.net/yum/snapshot/rhel3
 http://yum.opennms.org/snapshot/rhel3

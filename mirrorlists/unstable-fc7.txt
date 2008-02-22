@@ -1,2 +1,1 @@
-http://opennms.sourceforge.net/yum/unstable/fc7
 http://yum.opennms.org/unstable/fc7

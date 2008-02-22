@@ -42,3 +42,10 @@ pushd "$FROM" >/dev/null 2>&1
 		fi
 	done
 popd >/dev/null 2>&1
+
+find "$TO" -type l | while read FILE; do
+	if [ ! -r "$FILE" ]; then
+		echo "removing $FILE"
+		rm -f "$FILE"
+	fi
+done

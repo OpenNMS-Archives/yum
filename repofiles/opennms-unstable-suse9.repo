@@ -6,6 +6,14 @@ failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
+[opennms-testing-suse9]
+name=SuSE Linux 9.x RPMs (testing)
+baseurl=http://yum.opennms.org/testing/suse9
+mirrorlist=http://yum.opennms.org/mirrorlists/testing-suse9.txt
+failovermethod=roundrobin
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
 [opennms-unstable-suse9]
 name=SuSE Linux 9.x RPMs (unstable)
 baseurl=http://yum.opennms.org/unstable/suse9
