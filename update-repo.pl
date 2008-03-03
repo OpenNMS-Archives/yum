@@ -231,6 +231,7 @@ sub write_repofile {
 
 	my @ts;
 	for my $t (@trees) {
+		next if ($tree eq 'unstable' and $t eq 'testing');
 		push(@ts, $t);
 		last if ($t eq $tree);
 	}

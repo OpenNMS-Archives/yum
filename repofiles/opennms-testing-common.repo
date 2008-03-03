@@ -6,10 +6,10 @@ failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
-[opennms-unstable-common]
-name=RPMs Common to All OpenNMS Architectures RPMs (unstable)
-baseurl=http://yum.opennms.org/unstable/common
-mirrorlist=http://yum.opennms.org/mirrorlists/unstable-common.txt
+[opennms-testing-common]
+name=RPMs Common to All OpenNMS Architectures RPMs (testing)
+baseurl=http://yum.opennms.org/testing/common
+mirrorlist=http://yum.opennms.org/mirrorlists/testing-common.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

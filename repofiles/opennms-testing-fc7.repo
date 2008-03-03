@@ -6,10 +6,10 @@ failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
-[opennms-unstable-fc7]
-name=Fedora Core 7 RPMs (unstable)
-baseurl=http://yum.opennms.org/unstable/fc7
-mirrorlist=http://yum.opennms.org/mirrorlists/unstable-fc7.txt
+[opennms-testing-fc7]
+name=Fedora Core 7 RPMs (testing)
+baseurl=http://yum.opennms.org/testing/fc7
+mirrorlist=http://yum.opennms.org/mirrorlists/testing-fc7.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
