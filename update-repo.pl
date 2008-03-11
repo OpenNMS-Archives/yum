@@ -9,7 +9,14 @@ use File::Find;
 use File::Path;
 use IO::Handle;
 
-my $signing_password = shift @ARGV;
+my $make_rpm = 0;
+my $signing_password = shift(@ARGV);
+while ($ARGV[0] =~ /^--/) {
+	if ($ARGV[0] eq "--make-rpm") {
+		$make_rpm = 1;
+		shift(@ARGV);
+	}
+}
 
 my @trees   = qw(stable testing unstable snapshot);
 my @oses    = qw(fc4 fc5 fc6 fc7 fc8 mandriva2007 mandriva2008 rhel3 rhel4 rhel5 suse9 suse10);
@@ -251,7 +258,6 @@ sub write_repofile {
 [opennms-$treename-$os]
 name=$description RPMs ($treename)
 baseurl=$baseurl
-mirrorlist=$mirrorlist
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -274,6 +280,7 @@ sub make_rpm {
 	my $os   = shift;
 	my $return;
 
+	return unless ($make_rpm);
 	return if ($os =~ /^mandriva/);
 
 	for my $dir ('tmp', 'SPECS', 'SOURCES', 'RPMS', 'SRPMS', 'BUILD') {

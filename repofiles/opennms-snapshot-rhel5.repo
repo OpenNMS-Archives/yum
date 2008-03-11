@@ -1,7 +1,6 @@
 [opennms-stable-rhel5]
 name=RedHat Enterprise Linux 5.x and CentOS 5.x RPMs (stable)
 baseurl=http://yum.opennms.org/stable/rhel5
-mirrorlist=http://yum.opennms.org/mirrorlists/stable-rhel5.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -9,7 +8,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-testing-rhel5]
 name=RedHat Enterprise Linux 5.x and CentOS 5.x RPMs (testing)
 baseurl=http://yum.opennms.org/testing/rhel5
-mirrorlist=http://yum.opennms.org/mirrorlists/testing-rhel5.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -17,7 +15,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-unstable-rhel5]
 name=RedHat Enterprise Linux 5.x and CentOS 5.x RPMs (unstable)
 baseurl=http://yum.opennms.org/unstable/rhel5
-mirrorlist=http://yum.opennms.org/mirrorlists/unstable-rhel5.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -25,7 +22,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-snapshot-rhel5]
 name=RedHat Enterprise Linux 5.x and CentOS 5.x RPMs (snapshot)
 baseurl=http://yum.opennms.org/snapshot/rhel5
-mirrorlist=http://yum.opennms.org/mirrorlists/snapshot-rhel5.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

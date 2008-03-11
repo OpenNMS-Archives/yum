@@ -9,12 +9,16 @@ if [ ! -d "$FROM" ] || [ ! -d "$TO" ]; then
 	exit 1
 fi
 
-find "$TO" -type l | while read FILE; do
-	if [ ! -r "$FILE" ]; then
-		echo "removing $FILE"
-		rm -f "$FILE"
-	fi
-done
+clean_old_symlinks() {
+	find "$TO" -type l | while read FILE; do
+		if [ ! -r "$FILE" ]; then
+			echo "removing $FILE"
+			rm -f "$FILE" 2>/dev/null
+		fi
+	done
+}
+
+clean_old_symlinks
 
 pushd "$FROM" >/dev/null 2>&1
 	find * -name \*.rpm -type f | while read LINE; do
@@ -42,3 +46,5 @@ pushd "$FROM" >/dev/null 2>&1
 		fi
 	done
 popd >/dev/null 2>&1
+
+clean_old_symlinks

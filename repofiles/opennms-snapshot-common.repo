@@ -1,7 +1,6 @@
 [opennms-stable-common]
 name=RPMs Common to All OpenNMS Architectures RPMs (stable)
 baseurl=http://yum.opennms.org/stable/common
-mirrorlist=http://yum.opennms.org/mirrorlists/stable-common.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -9,7 +8,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-testing-common]
 name=RPMs Common to All OpenNMS Architectures RPMs (testing)
 baseurl=http://yum.opennms.org/testing/common
-mirrorlist=http://yum.opennms.org/mirrorlists/testing-common.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -17,7 +15,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-unstable-common]
 name=RPMs Common to All OpenNMS Architectures RPMs (unstable)
 baseurl=http://yum.opennms.org/unstable/common
-mirrorlist=http://yum.opennms.org/mirrorlists/unstable-common.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -25,7 +22,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-snapshot-common]
 name=RPMs Common to All OpenNMS Architectures RPMs (snapshot)
 baseurl=http://yum.opennms.org/snapshot/common
-mirrorlist=http://yum.opennms.org/mirrorlists/snapshot-common.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

@@ -1,7 +1,6 @@
 [opennms-stable-suse10]
 name=SuSE Linux 10.x RPMs (stable)
 baseurl=http://yum.opennms.org/stable/suse10
-mirrorlist=http://yum.opennms.org/mirrorlists/stable-suse10.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -9,7 +8,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-testing-suse10]
 name=SuSE Linux 10.x RPMs (testing)
 baseurl=http://yum.opennms.org/testing/suse10
-mirrorlist=http://yum.opennms.org/mirrorlists/testing-suse10.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

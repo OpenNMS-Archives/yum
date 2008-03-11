@@ -1,7 +1,6 @@
 [opennms-stable-suse9]
 name=SuSE Linux 9.x RPMs (stable)
 baseurl=http://yum.opennms.org/stable/suse9
-mirrorlist=http://yum.opennms.org/mirrorlists/stable-suse9.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

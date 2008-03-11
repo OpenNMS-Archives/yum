@@ -1,7 +1,6 @@
 [opennms-stable-fc6]
 name=Fedora Core 6 RPMs (stable)
 baseurl=http://yum.opennms.org/stable/fc6
-mirrorlist=http://yum.opennms.org/mirrorlists/stable-fc6.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -9,7 +8,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-testing-fc6]
 name=Fedora Core 6 RPMs (testing)
 baseurl=http://yum.opennms.org/testing/fc6
-mirrorlist=http://yum.opennms.org/mirrorlists/testing-fc6.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY

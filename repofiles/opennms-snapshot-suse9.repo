@@ -1,7 +1,6 @@
 [opennms-stable-suse9]
 name=SuSE Linux 9.x RPMs (stable)
 baseurl=http://yum.opennms.org/stable/suse9
-mirrorlist=http://yum.opennms.org/mirrorlists/stable-suse9.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -9,7 +8,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-testing-suse9]
 name=SuSE Linux 9.x RPMs (testing)
 baseurl=http://yum.opennms.org/testing/suse9
-mirrorlist=http://yum.opennms.org/mirrorlists/testing-suse9.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -17,7 +15,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-unstable-suse9]
 name=SuSE Linux 9.x RPMs (unstable)
 baseurl=http://yum.opennms.org/unstable/suse9
-mirrorlist=http://yum.opennms.org/mirrorlists/unstable-suse9.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
@@ -25,7 +22,6 @@ gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 [opennms-snapshot-suse9]
 name=SuSE Linux 9.x RPMs (snapshot)
 baseurl=http://yum.opennms.org/snapshot/suse9
-mirrorlist=http://yum.opennms.org/mirrorlists/snapshot-suse9.txt
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
