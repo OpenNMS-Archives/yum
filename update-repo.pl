@@ -82,7 +82,7 @@ for my $tree (@trees) {
 	print $index "<h2>$title</h2>\n";
 	print $index "<ul>\n";
 
-	print $index "<li>$descriptions->{'common'}(<a href=\"$tree/common\">browse</a>)</li>\n";
+	print $index "<li>$descriptions->{'common'} (<a href=\"$tree/common\">browse</a>)</li>\n";
 	mkpath([$tree . '/common', 'repofiles']);
 	create_repo($tree, 'common');
 
@@ -97,8 +97,10 @@ for my $tree (@trees) {
 		}
 		write_repofile($tree, $os, $descriptions->{$os});
 
-		my $rpmname = make_rpm($tree, $os);
-		if (defined $rpmname) {
+		make_rpm($tree, $os);
+		my $rpmname = get_repo_file_name($tree, $os);
+
+		if (defined $rpmname and -e "repofiles/$rpmname") {
 			print $index "<li><a href=\"repofiles/$rpmname\">$descriptions->{$os}</a> (<a href=\"$tree/$os\">browse</a>)</li>\n";
 		} else {
 			print $index "<li>$descriptions->{$os} (<a href=\"$tree/$os\">browse</a>)</li>\n";
@@ -116,7 +118,7 @@ print $index <<END;
 
   <div id="footer">
    <p>
-    OpenNMS Copyright \&copy; 2002-2007 <a href="http://www.opennms.com/">The OpenNMS Group, Inc.</a>
+    OpenNMS Copyright \&copy; 2002-2008 <a href="http://www.opennms.com/">The OpenNMS Group, Inc.</a>
     OpenNMS\&reg; is a registered trademark of <a href="http://www.opennms.com">The OpenNMS Group, Inc.</a>
    </p>
   </div>
@@ -278,10 +280,19 @@ END
 sub make_rpm {
 	my $tree = shift;
 	my $os   = shift;
+	my $outputdir = "$tree/$os/opennms";
+	my $outputfile = get_repo_file_name($tree, $os);
 	my $return;
 
-	return unless ($make_rpm);
 	return if ($os =~ /^mandriva/);
+
+	if (not $make_rpm) {
+		if (-r $outputdir . '/' . $outputfile) {
+			return $outputfile;
+		} else {
+			return undef;
+		}
+	}
 
 	for my $dir ('tmp', 'SPECS', 'SOURCES', 'RPMS', 'SRPMS', 'BUILD') {
 		mkpath([$repodir . '/' . $dir]);
@@ -311,12 +322,18 @@ sub make_rpm {
 		for my $file (@files) {
 			mkpath(["$tree/$os/opennms"]);
 			if (not -e "$tree/$os/opennms/$file") {
-				move($repodir . '/RPMS/noarch/' . $file, "repofiles/opennms-repo-$tree-$os.noarch.rpm");
+				move($repodir . '/RPMS/noarch/' . $file, "repofiles/$outputfile");
 			}
 		}
-		$return = "opennms-repo-$tree-$os.noarch.rpm";
+		$return = $outputfile;
 	}
 
 	rmtree($repodir);
 	return $return;
+}
+
+sub get_repo_file_name {
+	my $tree = shift;
+	my $os = shift;
+	return "opennms-repo-$tree-$os.noarch.rpm";
 }
