@@ -1,0 +1,7 @@
+[opennms-stable-fc11]
+name=Fedora Core 11 RPMs (stable)
+baseurl=http://yum.opennms.org/stable/fc11
+failovermethod=roundrobin
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+

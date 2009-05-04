@@ -1,0 +1,14 @@
+[opennms-stable-fc10]
+name=Fedora Core 10 RPMs (stable)
+baseurl=http://yum.opennms.org/stable/fc10
+failovermethod=roundrobin
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
+[opennms-unstable-fc10]
+name=Fedora Core 10 RPMs (unstable)
+baseurl=http://yum.opennms.org/unstable/fc10
+failovermethod=roundrobin
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+
