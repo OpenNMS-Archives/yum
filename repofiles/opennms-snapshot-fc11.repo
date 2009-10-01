@@ -1,26 +1,26 @@
 [opennms-stable-fc11]
-name=Fedora Core 11 RPMs (stable)
+name=Fedora 11 RPMs (stable)
 baseurl=http://yum.opennms.org/stable/fc11
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-testing-fc11]
-name=Fedora Core 11 RPMs (testing)
+name=Fedora 11 RPMs (testing)
 baseurl=http://yum.opennms.org/testing/fc11
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-unstable-fc11]
-name=Fedora Core 11 RPMs (unstable)
+name=Fedora 11 RPMs (unstable)
 baseurl=http://yum.opennms.org/unstable/fc11
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-snapshot-fc11]
-name=Fedora Core 11 RPMs (snapshot)
+name=Fedora 11 RPMs (snapshot)
 baseurl=http://yum.opennms.org/snapshot/fc11
 failovermethod=roundrobin
 gpgcheck=1

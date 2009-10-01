@@ -1,5 +1,5 @@
 [opennms-stable-fc7]
-name=Fedora Core 7 RPMs (stable)
+name=Fedora 7 RPMs (stable)
 baseurl=http://yum.opennms.org/stable/fc7
 failovermethod=roundrobin
 gpgcheck=1

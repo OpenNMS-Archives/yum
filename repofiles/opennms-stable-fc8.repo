@@ -1,5 +1,5 @@
 [opennms-stable-fc8]
-name=Fedora Core 8 RPMs (stable)
+name=Fedora 8 RPMs (stable)
 baseurl=http://yum.opennms.org/stable/fc8
 failovermethod=roundrobin
 gpgcheck=1

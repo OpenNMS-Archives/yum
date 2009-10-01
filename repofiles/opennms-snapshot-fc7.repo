@@ -1,26 +1,26 @@
 [opennms-stable-fc7]
-name=Fedora Core 7 RPMs (stable)
+name=Fedora 7 RPMs (stable)
 baseurl=http://yum.opennms.org/stable/fc7
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-testing-fc7]
-name=Fedora Core 7 RPMs (testing)
+name=Fedora 7 RPMs (testing)
 baseurl=http://yum.opennms.org/testing/fc7
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-unstable-fc7]
-name=Fedora Core 7 RPMs (unstable)
+name=Fedora 7 RPMs (unstable)
 baseurl=http://yum.opennms.org/unstable/fc7
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-snapshot-fc7]
-name=Fedora Core 7 RPMs (snapshot)
+name=Fedora 7 RPMs (snapshot)
 baseurl=http://yum.opennms.org/snapshot/fc7
 failovermethod=roundrobin
 gpgcheck=1

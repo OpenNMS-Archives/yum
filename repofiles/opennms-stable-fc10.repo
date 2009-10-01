@@ -1,5 +1,5 @@
 [opennms-stable-fc10]
-name=Fedora Core 10 RPMs (stable)
+name=Fedora 10 RPMs (stable)
 baseurl=http://yum.opennms.org/stable/fc10
 failovermethod=roundrobin
 gpgcheck=1

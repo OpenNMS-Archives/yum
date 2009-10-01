@@ -1,26 +1,26 @@
 [opennms-stable-fc9]
-name=Fedora Core 9 RPMs (stable)
+name=Fedora 9 RPMs (stable)
 baseurl=http://yum.opennms.org/stable/fc9
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-testing-fc9]
-name=Fedora Core 9 RPMs (testing)
+name=Fedora 9 RPMs (testing)
 baseurl=http://yum.opennms.org/testing/fc9
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-unstable-fc9]
-name=Fedora Core 9 RPMs (unstable)
+name=Fedora 9 RPMs (unstable)
 baseurl=http://yum.opennms.org/unstable/fc9
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-snapshot-fc9]
-name=Fedora Core 9 RPMs (snapshot)
+name=Fedora 9 RPMs (snapshot)
 baseurl=http://yum.opennms.org/snapshot/fc9
 failovermethod=roundrobin
 gpgcheck=1

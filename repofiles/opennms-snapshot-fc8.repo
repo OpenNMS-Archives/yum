@@ -1,26 +1,26 @@
 [opennms-stable-fc8]
-name=Fedora Core 8 RPMs (stable)
+name=Fedora 8 RPMs (stable)
 baseurl=http://yum.opennms.org/stable/fc8
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-testing-fc8]
-name=Fedora Core 8 RPMs (testing)
+name=Fedora 8 RPMs (testing)
 baseurl=http://yum.opennms.org/testing/fc8
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-unstable-fc8]
-name=Fedora Core 8 RPMs (unstable)
+name=Fedora 8 RPMs (unstable)
 baseurl=http://yum.opennms.org/unstable/fc8
 failovermethod=roundrobin
 gpgcheck=1
 gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
 
 [opennms-snapshot-fc8]
-name=Fedora Core 8 RPMs (snapshot)
+name=Fedora 8 RPMs (snapshot)
 baseurl=http://yum.opennms.org/snapshot/fc8
 failovermethod=roundrobin
 gpgcheck=1
