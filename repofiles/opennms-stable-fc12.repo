@@ -1,0 +1,7 @@
+[opennms-stable-fc12]
+name=Fedora 12 RPMs (stable)
+baseurl=http://yum.opennms.org/stable/fc12
+failovermethod=roundrobin
+gpgcheck=1
+gpgkey=http://yum.opennms.org/OPENNMS-GPG-KEY
+

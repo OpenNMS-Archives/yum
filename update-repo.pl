@@ -20,7 +20,7 @@ while ($ARGV[0] =~ /^--/) {
 
 my @trees   = qw(stable testing unstable snapshot);
 #my @oses    = qw(fc4 fc5 fc6 fc7 fc8 fc9 fc10 fc11 mandriva2007 mandriva2008 mandriva2009 rhel3 rhel4 rhel5 suse9 suse10);
-my @oses    = qw(fc4 fc5 fc6 fc7 fc8 fc9 fc10 fc11 rhel3 rhel4 rhel5 suse9 suse10);
+my @oses    = qw(fc4 fc5 fc6 fc7 fc8 fc9 fc10 fc11 fc12 rhel3 rhel4 rhel5 suse9 suse10);
 my $repodir = '/tmp/rpm-repo-' . $$;
 
 if (@ARGV) {
@@ -39,6 +39,7 @@ my $descriptions = {
 	fc9          => 'Fedora 9',
 	fc10         => 'Fedora 10',
 	fc11         => 'Fedora 11',
+	fc12         => 'Fedora 12',
 	mandriva2007 => 'Mandriva 2007',
 	mandriva2008 => 'Mandriva 2008',
 	mandriva2009 => 'Mandriva 2009',
